@@ -1,32 +1,24 @@
-import React, {useState} from 'react';
-import CKEditor from '@ckeditor/ckeditor5-react';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import './App.css';
-// import ReactHtmlParser from 'react-html-parser';
 
-function App() {
-  const [addData,setVal]=useState("");
-  const [addedData,showData]=useState(0);
-  const handleChange= (e,editor)=>{
-     const data = editor.getData();
-     setVal(data);
-  }
+
+export default function App() {
   return (
-    <div className="App">
-       <h2>
-        <u>CKEditor5 with React.js</u>
-       </h2>
-       <div style={{width:'700px',display:'inline-block',testAlign:'left'}}>
-        <div style={{width:'700px',display:'inline-block',textAlign:'right',marginBottom:'5px'}}>
-          <button style={{backgroundColor:'black',color:'white'}} onClick={()=>showData(!addedData)}>{addedData?'Hide Data':'Show Data'}</button>
-        </div>
-       <CKEditor editor={ClassicEditor} data={addData} onChange={handleChange}/>
-       <div>
-         {addedData ? addData:''}
-       </div>
-      </div>
+    <div className='App'>
+      <h2>CKEditor 5 in React App</h2>
+      <CKEditor
+        editor={ ClassicEditor }
+        data="<p>Hello from CKEditor 5!</p>"
+        onReady={ ( editor ) => {
+          console.log( "CKEditor5 React Component is ready to use!", editor );
+        } }
+        onChange={ ( event, editor ) => {
+          const data = editor.getData();
+          console.log( { event, editor, data } );
+        } }
+      />
     </div>
   );
 }
 
-export default App;
+
